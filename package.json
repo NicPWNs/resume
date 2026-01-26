@@ -1,0 +1,11 @@
+{
+  "name": "resume-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.js"
+  },
+  "dependencies": {
+    "puppeteer": "^24.0.0"
+  }
+}

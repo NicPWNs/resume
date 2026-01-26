@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{name}} Resume</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Calibri, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.25;
+      color: #000;
+      padding: 0.4in 0.5in 0.4in 0.5in;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #000;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .header-left h1 {
+      font-size: 16pt;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    .header-left .contact {
+      font-size: 9pt;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 9pt;
+      align-self: flex-end;
+    }
+
+    .section {
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 8.5pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-bottom: 2px solid #C45911;
+      padding-bottom: 2px;
+      margin-bottom: 6px;
+    }
+
+    .summary {
+      text-align: justify;
+    }
+
+    .certs-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .certs-column {
+      flex: 1;
+    }
+
+    .certs-column-title {
+      font-weight: bold;
+      font-size: 9pt;
+      margin-bottom: 4px;
+    }
+
+    .cert-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9pt;
+      line-height: 1.4;
+    }
+
+    .cert-name {
+      flex: 1;
+    }
+
+    .cert-date {
+      font-weight: bold;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+
+    .edu-item {
+      margin-bottom: 5px;
+    }
+
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+    }
+
+    .edu-header .degree {
+      font-size: 9.5pt;
+    }
+
+    .edu-header .date {
+      font-size: 9pt;
+    }
+
+    .edu-details {
+      margin-left: 0;
+    }
+
+    .edu-details li {
+      margin-left: 20px;
+      font-size: 9pt;
+    }
+
+    .exp-company {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .exp-company-name {
+      font-weight: bold;
+    }
+
+    .exp-company-date {
+      font-weight: normal;
+    }
+
+    .exp-position {
+      margin-left: 15px;
+      margin-top: 2px;
+    }
+
+    .exp-position-title {
+      font-weight: bold;
+    }
+
+    .exp-responsibilities {
+      margin-left: 30px;
+    }
+
+    .exp-responsibilities li {
+      margin-left: 15px;
+      font-size: 9pt;
+    }
+
+    .skills-list, .awards-list, .ctf-list {
+      margin-left: 20px;
+    }
+
+    .skills-list li, .ctf-list li {
+      font-size: 9pt;
+    }
+
+    .awards-list li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9pt;
+    }
+
+    .page-header {
+      display: none;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+      }
+
+      .page-break {
+        page-break-before: always;
+      }
+
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        font-size: 11pt;
+        margin-bottom: 12px;
+        padding-top: 0.5in;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <h1>{{name}}</h1>
+      <div class="contact">{{email}}<br>{{phone}}</div>
+    </div>
+    <div class="header-right">
+      {{linkedin}}<br>{{location}}
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Summary</div>
+    <div class="summary">{{summary}}</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Certifications</div>
+    <div class="certs-container">
+      <div class="certs-column">
+        <div class="certs-column-title">Information Security & Technology Certifications</div>
+        {{securityCerts}}
+      </div>
+      <div class="certs-column">
+        <div class="certs-column-title">Cloud & Development Certifications</div>
+        {{cloudCerts}}
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    {{education}}
+  </div>
+
+  <div class="section">
+    <div class="section-title">Experience</div>
+    {{experience}}
+  </div>
+
+  <div class="section">
+    <div class="section-title">Core Skills & Areas of Experience</div>
+    <ul class="skills-list">
+      {{skills}}
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Awards & Wins</div>
+    <ul class="awards-list">
+      {{awards}}
+    </ul>
+  </div>
+</body>
+</html>
