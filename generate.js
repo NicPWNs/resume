@@ -37,10 +37,22 @@ function formatCertDate(issueYear, expirationYear) {
   return `${issueYear} - ${expiry}`;
 }
 
+// Expiration year overrides for renewed certs
+const EXPIRATION_OVERRIDES = {
+  'aws certified solutions architect professional': '2029',
+  'aws certified solutions architect associate': '2029',
+  'aws certified cloud practitioner': '2029',
+};
+
 // Calculate expiration year (4 years from issue for most certs)
 function getExpirationYear(cert) {
   const issueYear = new Date(cert.date).getFullYear();
   const name = cert.name.toLowerCase();
+
+  // Check for renewed cert overrides
+  if (EXPIRATION_OVERRIDES[name]) {
+    return EXPIRATION_OVERRIDES[name];
+  }
 
   // Non-expiring certs
   if (name.includes('itf') || name.includes('fundamentals') || name.includes('oscp') || name.includes('itil')) {
