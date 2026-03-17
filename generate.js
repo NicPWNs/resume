@@ -37,44 +37,8 @@ function formatCertDate(issueYear, expirationYear) {
   return `${issueYear} - ${expiry}`;
 }
 
-// Expiration year overrides for renewed certs
-const EXPIRATION_OVERRIDES = {
-  'aws certified solutions architect professional': '2029',
-  'aws certified solutions architect associate': '2029',
-  'aws certified cloud practitioner': '2029',
-  'comptia cysa+': '2026',
-  'comptia security+': '2026',
-  'comptia network+': '2026',
-  'comptia a+': '2026',
-};
-
-// Calculate expiration year (4 years from issue for most certs)
 function getExpirationYear(cert) {
-  const issueYear = new Date(cert.date).getFullYear();
-  const name = cert.name.toLowerCase();
-
-  // Check for renewed cert overrides
-  if (EXPIRATION_OVERRIDES[name]) {
-    return EXPIRATION_OVERRIDES[name];
-  }
-
-  // Non-expiring certs
-  if (name.includes('itf') || name.includes('fundamentals') || name.includes('oscp') || name.includes('itil')) {
-    return 'NED';
-  }
-
-  // GIAC certs expire in 4 years
-  if (name.includes('giac') || name.includes('gsec') || name.includes('gcih') || name.includes('gstrt') || name.includes('gdsa') || name.includes('ssap')) {
-    return (issueYear + 4).toString();
-  }
-
-  // ISC2 certs expire in 3 years
-  if (name.includes('cissp') || name.includes('isc2') || name.includes('cc')) {
-    return (issueYear + 3).toString();
-  }
-
-  // Most other certs expire in 3 years
-  return (issueYear + 3).toString();
+  return cert.expirationDate || 'NED';
 }
 
 function categorizeCert(cert) {
