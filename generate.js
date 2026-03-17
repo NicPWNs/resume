@@ -42,6 +42,10 @@ const EXPIRATION_OVERRIDES = {
   'aws certified solutions architect professional': '2029',
   'aws certified solutions architect associate': '2029',
   'aws certified cloud practitioner': '2029',
+  'comptia cysa+': '2026',
+  'comptia security+': '2026',
+  'comptia network+': '2026',
+  'comptia a+': '2026',
 };
 
 // Calculate expiration year (4 years from issue for most certs)
