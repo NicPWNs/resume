@@ -64,6 +64,7 @@
     .certs-container {
       display: flex;
       gap: 20px;
+      break-inside: avoid;
     }
 
     .certs-column {
@@ -152,18 +153,78 @@
       font-size: 9pt;
     }
 
-    .skills-list, .awards-list, .ctf-list {
+    .skills-list, .awards-list, .publications-list {
       margin-left: 20px;
     }
 
-    .skills-list li, .ctf-list li {
+    .skills-list li {
       font-size: 9pt;
     }
 
-    .awards-list li {
+    .skill-name {
+      font-weight: bold;
+    }
+
+    .awards-list li, .publications-list li, .early-career-list li {
       display: flex;
       justify-content: space-between;
       font-size: 9pt;
+    }
+
+    .early-career-list {
+      margin-left: 35px;
+    }
+
+    .early-career-list .exp-position-title {
+      font-weight: normal;
+    }
+
+    .pub-name, .project-name {
+      font-weight: bold;
+    }
+
+    .project-item {
+      margin-top: 3px;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9pt;
+    }
+
+    .project-details {
+      margin-left: 20px;
+    }
+
+    .project-details li {
+      font-size: 9pt;
+    }
+
+    .subsection-title {
+      font-weight: bold;
+      font-size: 9pt;
+      margin: 4px 0 2px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Keep entries whole and headings with their content across pages */
+    .edu-item, .exp-position, .project-item {
+      break-inside: avoid;
+    }
+
+    .section-title, .subsection-title, .exp-company, .project-header {
+      break-after: avoid;
+    }
+
+    .edu-header .date, .exp-company-date, .project-header > span:last-child,
+    .awards-list li > span:last-child, .publications-list li > span:last-child, .early-career-list li > span:last-child {
+      white-space: nowrap;
+      margin-left: 10px;
     }
 
     .page-header {
@@ -197,13 +258,23 @@
       <div class="contact">{{email}}<br>{{phone}}</div>
     </div>
     <div class="header-right">
-      {{linkedin}}<br>{{location}}
+      {{linkedin}}<br>{{github}}<br>{{location}}{{clearance}}
     </div>
   </div>
 
   <div class="section">
     <div class="section-title">Summary</div>
     <div class="summary">{{summary}}</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Experience</div>
+    {{experience}}
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    {{education}}
   </div>
 
   <div class="section">
@@ -221,17 +292,17 @@
   </div>
 
   <div class="section">
-    <div class="section-title">Education</div>
-    {{education}}
+    <div class="section-title">Vulnerability Research & Projects</div>
+    <div class="subsection-title">Published CVEs</div>
+    <ul class="publications-list">
+      {{publications}}
+    </ul>
+    <div class="subsection-title">Projects</div>
+    {{projects}}
   </div>
 
   <div class="section">
-    <div class="section-title">Experience</div>
-    {{experience}}
-  </div>
-
-  <div class="section">
-    <div class="section-title">Core Skills & Areas of Experience</div>
+    <div class="section-title">Technical Skills</div>
     <ul class="skills-list">
       {{skills}}
     </ul>

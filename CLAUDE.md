@@ -2,7 +2,14 @@
 
 ## Overview
 
-Generates a PDF resume from JSON Resume data stored in a GitHub Gist (`5489290125ff3707caf8d51cb6cdc8a0`). The gist follows the [JSON Resume schema](https://github.com/jsonresume/resume-schema) with a custom `expirationDate` field on certificates.
+Generates a PDF resume from JSON Resume data stored in a GitHub Gist (`5489290125ff3707caf8d51cb6cdc8a0`). The gist follows the [JSON Resume schema](https://github.com/jsonresume/resume-schema) with these custom fields:
+
+- `certificates[].expirationDate` — expiration year string
+- `work[].via` — contracting company for client-site roles (rendered as "via T-Rex Solutions")
+- `education[].expectedEndDate` — expected graduation date for in-progress degrees
+- `basics.clearance` — security clearance shown in the header
+
+The gist also feeds [nicpjones.com](https://github.com/NicPWNs/NicPJones.com) (`lib/resume.ts`), so keep it a complete record and do PDF-only trimming in `generate.js`.
 
 ## Architecture
 
@@ -13,7 +20,9 @@ Generates a PDF resume from JSON Resume data stored in a GitHub Gist (`548929012
 ## Key Concepts
 
 - **Resume data lives in the gist, not in this repo.** To update resume content (jobs, certs, education, etc.), update the gist via `gh api`.
-- **Certification expiration dates** are stored as `expirationDate` (year string) on each cert in the gist. Certs without `expirationDate` display "NED" (no expiration date).
+- **Certification expiration dates** are stored as `expirationDate` (year string) on each cert in the gist. Certs without `expirationDate` display "Lifetime".
+- **PDF-only trimming** — `PDF_HIDDEN_CERTS`, `PDF_HIDDEN_AWARD_KEYWORDS`, and `PDF_HIDDEN_EDUCATION_KEYWORDS` hide entries from the PDF; `COLLAPSED_CERT_ISSUERS` merges an issuer's certs into one row; companies whose roles all ended before `EARLY_CAREER_CUTOFF` become one-liners under "Early Career".
+- **CI renders with Liberation Sans** (no Calibri on Ubuntu), which is wider than Calibri. Check page count with a metric-compatible font (e.g. Arial) when testing locally.
 - **Certs are categorized** into security vs cloud columns using keyword lists (`SECURITY_CERT_KEYWORDS`, `CLOUD_CERT_KEYWORDS`).
 - **Work experience** is grouped by company with multiple positions shown under one header.
 
