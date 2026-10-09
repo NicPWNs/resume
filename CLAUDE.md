@@ -5,7 +5,7 @@
 Generates a PDF resume from JSON Resume data stored in a GitHub Gist (`5489290125ff3707caf8d51cb6cdc8a0`). The gist follows the [JSON Resume schema](https://github.com/jsonresume/resume-schema) with these custom fields:
 
 - `certificates[].expirationDate` — expiration year string
-- `work[].via` — contracting company for client-site roles (rendered as "via T-Rex Solutions")
+- `work[].via` — contracting company for client-site roles (rendered as "via T-Rex")
 - `education[].expectedEndDate` — expected graduation date for in-progress degrees
 - `basics.clearance` — security clearance shown in the header
 
