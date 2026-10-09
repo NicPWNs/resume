@@ -24,14 +24,6 @@ const COLLAPSED_CERT_ISSUERS = ['CompTIA'];
 // under "Early Career"; projects that ended before it are omitted.
 const EARLY_CAREER_CUTOFF = '2020-01-01';
 
-function formatDate(dateStr) {
-  if (!dateStr) return '';
-  const date = new Date(dateStr);
-  const month = date.toLocaleString('en-US', { month: 'long', timeZone: 'UTC' });
-  const year = date.getUTCFullYear();
-  return `${month} ${year}`;
-}
-
 function formatDateShort(dateStr) {
   if (!dateStr) return '';
   const date = new Date(dateStr);
@@ -94,12 +86,12 @@ function generateEducation(education) {
   return education
     .filter(edu => !PDF_HIDDEN_EDUCATION_KEYWORDS.some(k => edu.institution.toLowerCase().includes(k)))
     .map(edu => {
-      const startDate = formatDate(edu.startDate);
+      const startDate = formatDateShort(edu.startDate);
       let endDate = 'Present';
       if (edu.endDate) {
-        endDate = formatDate(edu.endDate);
+        endDate = formatDateShort(edu.endDate);
       } else if (edu.expectedEndDate) {
-        endDate = `${formatDate(edu.expectedEndDate)} (Expected)`;
+        endDate = `${formatDateShort(edu.expectedEndDate)} (Expected)`;
       }
       const period = `${startDate} – ${endDate}`;
 
@@ -145,7 +137,7 @@ function generateExperience(work) {
     const latest = new Date(Math.max(...endDates));
     const hasCurrentRole = entries.some(e => !e.endDate);
 
-    const companyPeriod = `${formatDate(earliest.toISOString())} – ${hasCurrentRole ? 'Present' : formatDate(latest.toISOString())}`;
+    const companyPeriod = `${formatDateShort(earliest.toISOString())} – ${hasCurrentRole ? 'Present' : formatDateShort(latest.toISOString())}`;
     const location = entries.find(e => e.location)?.location || 'Remote';
     const via = entries.find(e => e.via)?.via;
 
