@@ -8,8 +8,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RESUME_GIST_ID = '5489290125ff3707caf8d51cb6cdc8a0';
 
 // Certification categorization
-const SECURITY_CERT_KEYWORDS = ['comptia', 'itil', 'ceh', 'oscp', 'isc2', 'cissp', 'cc', 'giac', 'gsec', 'gcih', 'gstrt', 'gdsa', 'ssap', 'ethical', 'offensive', 'ec-council'];
-const CLOUD_CERT_KEYWORDS = ['aws', 'azure', 'cloud', 'solutions architect', 'github', 'cmmi', 'isaca'];
+const SECURITY_CERT_KEYWORDS = ['comptia', 'ceh', 'oscp', 'isc2', 'cissp', 'cc', 'giac', 'gsec', 'gcih', 'gstrt', 'gdsa', 'ssap', 'ethical', 'offensive', 'ec-council'];
+const CLOUD_CERT_KEYWORDS = ['aws', 'azure', 'cloud', 'solutions architect', 'github', 'cmmi', 'isaca', 'itil'];
 
 // The gist also feeds nicpjones.com, so it keeps the full history. These
 // entries stay in the gist but are left off the PDF.
@@ -95,8 +95,8 @@ function generateEducation(education) {
       }
       const period = `${startDate} – ${endDate}`;
 
-      // The expected date already signals the degree is in progress
-      const status = edu.endDate ? 'Graduated' : edu.expectedEndDate ? '' : 'In Progress';
+      // The end or expected date already signals graduation status
+      const status = edu.endDate || edu.expectedEndDate ? '' : 'In Progress';
       const details = [status, edu.score ? `${edu.score} GPA` : '', ...(edu.courses || [])].filter(Boolean).join(', ');
 
       return `
@@ -232,20 +232,26 @@ function generateAwards(awards) {
     const placements = grouped.get(a.title);
     const place = a.summary || '';
     if (!placements.has(place)) {
-      placements.set(place, new Set());
+      placements.set(place, []);
     }
-    placements.get(place).add(formatYear(a.date));
+    placements.get(place).push(formatYear(a.date));
   }
 
   const joinYears = years => [...new Set(years)].sort().join(' & ');
+  // Like joinYears, but counts repeats within a year (e.g. "2024 x2")
+  const countYears = years => [...new Set(years)].sort().map(y => {
+    const count = years.filter(x => x === y).length;
+    return count > 1 ? `${y} x${count}` : y;
+  }).join(' & ');
 
   return Array.from(grouped.entries()).map(([title, placements]) => {
     const entries = Array.from(placements.entries()).sort(([a], [b]) => a.localeCompare(b));
+    const hasRepeatYear = ([, years]) => years.length > new Set(years).size;
     let place;
-    if (entries.length === 1) {
+    if (entries.length === 1 && !hasRepeatYear(entries[0])) {
       place = entries[0][0];
     } else {
-      place = entries.map(([p, years]) => `${p} (${joinYears(years)})`).join(', ');
+      place = entries.map(([p, years]) => `${p} (${countYears(years)})`).join(', ');
     }
     const yearStr = joinYears(entries.flatMap(([, years]) => [...years]));
     return `<li><span>${title}${place ? ' – ' + place : ''}</span><span>${yearStr}</span></li>`;
