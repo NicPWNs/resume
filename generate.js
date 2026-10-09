@@ -91,7 +91,7 @@ function generateEducation(education) {
       if (edu.endDate) {
         endDate = formatDateShort(edu.endDate);
       } else if (edu.expectedEndDate) {
-        endDate = `${formatDateShort(edu.expectedEndDate)} (Expected)`;
+        endDate = formatDateShort(edu.expectedEndDate);
       }
       const period = `${startDate} – ${endDate}`;
 
