@@ -14,6 +14,11 @@ const CLOUD_CERT_KEYWORDS = ['aws', 'azure', 'cloud', 'solutions architect', 'gi
 // The gist also feeds nicpjones.com, so it keeps the full history. These
 // entries stay in the gist but are left off the PDF.
 const PDF_HIDDEN_CERTS = ['ISC2 CC', 'Azure Fundamentals (AZ-900)'];
+
+// Shorter PDF names for certs whose full name wraps the column
+const PDF_CERT_NAMES = {
+  'GIAC Strategic Planning, Policy, and Leadership (GSTRT)': 'GIAC Strategic Planning & Leadership (GSTRT)'
+};
 const PDF_HIDDEN_AWARD_KEYWORDS = ['skillsusa'];
 const PDF_HIDDEN_EDUCATION_KEYWORDS = ['high school'];
 
@@ -73,7 +78,7 @@ function collapseCerts(certs) {
 function generateCertRows(certs) {
   return certs.map(cert => {
     const issueYear = formatYear(cert.date);
-    return `<div class="cert-row"><span class="cert-name">${cert.name}</span><span class="cert-date">${issueYear} – <span class="cert-exp">${cert.expirationDate || '∞'}</span></span></div>`;
+    return `<div class="cert-row"><span class="cert-name">${PDF_CERT_NAMES[cert.name] || cert.name}</span><span class="cert-date">${issueYear} – <span class="cert-exp">${cert.expirationDate || '<span class="cert-inf">∞</span>'}</span></span></div>`;
   }).join('\n');
 }
 
