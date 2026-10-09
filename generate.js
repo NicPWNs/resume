@@ -13,7 +13,7 @@ const CLOUD_CERT_KEYWORDS = ['aws', 'azure', 'cloud', 'solutions architect', 'gi
 
 // The gist also feeds nicpjones.com, so it keeps the full history. These
 // entries stay in the gist but are left off the PDF.
-const PDF_HIDDEN_CERTS = ['ISC2 CC', 'Azure Fundamentals (AZ-900)', 'AWS Certified Cloud Practitioner', 'AWS Certified Solutions Architect Associate'];
+const PDF_HIDDEN_CERTS = ['ISC2 CC', 'Azure Fundamentals (AZ-900)'];
 const PDF_HIDDEN_AWARD_KEYWORDS = ['skillsusa'];
 const PDF_HIDDEN_EDUCATION_KEYWORDS = ['high school'];
 
@@ -35,11 +35,6 @@ function formatDateShort(dateStr) {
 function formatYear(dateStr) {
   if (!dateStr) return '';
   return new Date(dateStr).getUTCFullYear().toString();
-}
-
-function formatCertDate(issueYear, expirationYear) {
-  const expiry = expirationYear || 'Lifetime';
-  return `${issueYear} – ${expiry}`;
 }
 
 function categorizeCert(cert) {
@@ -78,7 +73,7 @@ function collapseCerts(certs) {
 function generateCertRows(certs) {
   return certs.map(cert => {
     const issueYear = formatYear(cert.date);
-    return `<div class="cert-row"><span class="cert-name">${cert.name}</span><span class="cert-date">${formatCertDate(issueYear, cert.expirationDate)}</span></div>`;
+    return `<div class="cert-row"><span class="cert-name">${cert.name}</span><span class="cert-date">${issueYear} – <span class="cert-exp">${cert.expirationDate || '∞'}</span></span></div>`;
   }).join('\n');
 }
 

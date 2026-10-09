@@ -90,8 +90,16 @@
 
     .cert-date {
       font-weight: bold;
+      font-variant-numeric: tabular-nums;
       white-space: nowrap;
       margin-left: 10px;
+    }
+
+    /* Fixed-width expiry so "∞" (no expiration) lines up with years */
+    .cert-exp {
+      display: inline-block;
+      width: 4ch;
+      text-align: center;
     }
 
     .edu-item {

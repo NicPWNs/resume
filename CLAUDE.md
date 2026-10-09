@@ -20,7 +20,7 @@ The gist also feeds [nicpjones.com](https://github.com/NicPWNs/NicPJones.com) (`
 ## Key Concepts
 
 - **Resume data lives in the gist, not in this repo.** To update resume content (jobs, certs, education, etc.), update the gist via `gh api`.
-- **Certification expiration dates** are stored as `expirationDate` (year string) on each cert in the gist. Certs without `expirationDate` display "Lifetime".
+- **Certification expiration dates** are stored as `expirationDate` (year string) on each cert in the gist. Certs without `expirationDate` display "∞" (no expiration) in a fixed-width slot so dates stay aligned.
 - **PDF-only trimming** — `PDF_HIDDEN_CERTS`, `PDF_HIDDEN_AWARD_KEYWORDS`, and `PDF_HIDDEN_EDUCATION_KEYWORDS` hide entries from the PDF; `COLLAPSED_CERT_ISSUERS` merges an issuer's certs into one row; companies whose roles all ended before `EARLY_CAREER_CUTOFF` become one-liners under "Early Career".
 - **CI renders with Liberation Sans** (no Calibri on Ubuntu), which is wider than Calibri. Check page count with a metric-compatible font (e.g. Arial) when testing locally.
 - **Certs are categorized** into security vs cloud columns using keyword lists (`SECURITY_CERT_KEYWORDS`, `CLOUD_CERT_KEYWORDS`).
